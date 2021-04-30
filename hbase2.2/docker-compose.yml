@@ -1,0 +1,120 @@
+version: "3"
+services:
+  namenode:
+    image: umxwe/hadoop3.1-namenode:0.1
+    container_name: namenode
+    ports:
+      - 9870:9870
+      - 9000:9000
+    environment:
+      - CLUSTER_NAME=umx
+    env_file:
+      - ./hadoop.env
+
+  datanode:
+    image: umxwe/hadoop3.1-datanode:0.1
+    container_name: datanode
+    environment:
+      SERVICE_PRECONDITION: "namenode:9870"
+    ports:
+      - "9864"
+    env_file:
+      - ./hadoop.env
+  
+  resourcemanager:
+    image: umxwe/hadoop3.1-resourcemanager:0.1
+    container_name: resourcemanager
+    ports:
+      - 8088:8088
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
+    env_file:
+      - ./hadoop.env
+
+  nodemanager:
+    image: umxwe/hadoop3.1-nodemanager:0.1
+    container_name: nodemanager
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+  
+  historyserver:
+    image: umxwe/hadoop3.1-historyserver:0.1
+    container_name: historyserver
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    env_file:
+      - ./hadoop.env
+
+  hive-metastore:
+    image: umxwe/hive3.1.2-hadoop3.1:0.1
+    container_name: hive-metastore
+    volumes:
+      - /data/tools:/tools
+    env_file:
+      - ./hadoop.env
+    command: /opt/hive/bin/hive --service metastore
+    environment:
+      SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 hive-metastore-pg:5432"
+    ports:
+      - "9083:9083"
+  hive-metastore-pg:
+    image: umxwe/hive3.1-metastore-pg:0.1
+    container_name: hive-metastore-pg
+  hive-server:
+    image: umxwe/hive3.1.2-hadoop3.1:0.1
+    container_name: hive-server
+    env_file:
+      - ./hadoop.env
+    environment:
+      HIVE_CORE_CONF_javax_jdo_option_ConnectionURL: "jdbc:postgresql://hive-metastore/metastore"
+      SERVICE_PRECONDITION: "hive-metastore:9083"
+    ports:
+      - "10000:10000"
+
+  zookeeper:
+    image: umxwe/zookeeper:0.1
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+
+  hbase-master:
+    image: coomia/hbase2.2:0.1
+    container_name: hbase-master
+    command: master
+    ports:
+      - 16000:16000
+      - 16010:16010
+    depends_on:
+      - zookeeper
+      
+  hbase-regionserver:
+    image: coomia/hbase2.2:0.1
+    container_name: hbase-regionserver
+    command: regionserver
+    ports:
+      - 16030:16030
+      - 16201:16201
+      - 16301:16301
+    depends_on:
+      - zookeeper
+      - hbase-master
+  hbase-thrift:
+    image: coomia/hbase2.2:0.1
+    container_name: hbase-thrift
+    command: thrift
+    ports:
+      - 9090:9090
+      - 9095:9095
+    depends_on:
+      - zookeeper
+  hbase-stargate:
+    image: coomia/hbase2.2:0.1
+    container_name: hbase-stargate
+    command: stargate
+    ports:
+      - 8080:8080
+      - 8085:8085
+    depends_on:
+      - zookeeper

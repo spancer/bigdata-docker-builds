@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+	<property>
+		<name>hbase.cluster.distributed</name>
+		<value>true</value>
+	</property>
+	<property>
+		<name>hbase.unsafe.stream.capability.enforce</name>
+		<value>false</value>
+	</property>
+	<property>
+		<name>hbase.rootdir</name>
+		<value>hdfs://namenode:9000/hbase</value>
+	</property>
+	<property>
+		<name>hbase.zookeeper.quorum</name>
+		<value>zookeeper:2181</value>
+	</property>
+	<property>
+		<name>zookeeper.znode.parent</name>
+		<value>/hbase</value>
+	</property>
+	 <property>
+              <name>hbase.master</name>
+              <value>hbase-master:16010</value>
+      </property>
+</configuration>

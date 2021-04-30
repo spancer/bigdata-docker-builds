@@ -1,0 +1,8 @@
+version: '3'
+services:
+  zookeeper:
+    image: coomia/zookeeper:${VERSION:-0.1}
+    ports:
+      - 2181:2181
+      - 3181:3181
+      - 4181:4181
