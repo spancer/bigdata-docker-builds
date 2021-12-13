@@ -1,4 +1,4 @@
-FROM coomia/hadoop3.2-base:0.1
+FROM coomia/hadoop3.2-base:0.2
 
 MAINTAINER spancer.ray<spancer.roc.ray@gmail.com>
 
