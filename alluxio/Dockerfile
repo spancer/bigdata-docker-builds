@@ -1,0 +1,1 @@
+FROM alluxio/alluxio:2.7.1
