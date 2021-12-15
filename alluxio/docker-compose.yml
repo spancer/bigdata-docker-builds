@@ -1,0 +1,51 @@
+version: "3"
+services:
+  alluxio-master:
+    image: coomia/alluxio
+    hostname: alluxio-master
+    volumes:
+      - alluxio-journal:/opt/alluxio/journal
+      - alluxio-ufs:/opt/alluxio/underFSStorage/
+    user: root
+    entrypoint: [ bash, -xeuc ]
+    environment:
+      - ALLUXIO_JAVA_OPTS=-XX:+UseContainerSupport -XX:MaxRAMPercentage=45.0
+    command:
+      - |
+        JOURNAL_FOLDER=$$(alluxio getConf alluxio.master.journal.folder)
+        if [ ! -d "$$JOURNAL_FOLDER" ]; then
+          alluxio formatJournal
+        fi
+        exec /entrypoint.sh master --no-format
+    ports:
+      - 19999:19999
+
+  alluxio-worker:
+    image: dpp/alluxio
+    hostname: alluxio-worker
+    volumes:
+      - alluxio-ufs:/opt/alluxio/underFSStorage/
+      - alluxio-worker-data:/alluxio-worker-data
+    user: root
+    command: worker --no-format
+    environment:
+      - ALLUXIO_JAVA_OPTS=-XX:+UseContainerSupport -XX:MaxRAMPercentage=45.0
+      - ALLUXIO_WORKER_TIEREDSTORE_LEVEL0_DIRS_PATH=/alluxio-worker-data
+    depends_on:
+      - alluxio-master
+
+  alluxio-proxy:
+    image: dpp/alluxio
+    hostname: alluxio-proxy
+    user: root
+    command: proxy
+    environment:
+      - ALLUXIO_JAVA_OPTS=-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0
+    ports:
+      - 39999:39999
+    depends_on:
+      - alluxio-master
+volumes:
+  alluxio-worker-data:
+  alluxio-ufs:
+  alluxio-journal:
