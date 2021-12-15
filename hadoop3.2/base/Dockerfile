@@ -24,7 +24,7 @@ RUN set -x \
     && tar -xvf /tmp/hadoop.tar.gz -C /opt/ \
     && rm /tmp/hadoop.tar.gz*
 
-ADD lib/alluxio-2.7.1-client.jar /opt/alluxio/client
+ADD lib/alluxio-2.7.1-client.jar /opt/alluxio/client/
 RUN echo "export HADOOP_CLASSPATH=/opt/alluxio/client/alluxio-*-client.jar:\${HADOOP_CLASSPATH}" >> /opt/hadoop-$HADOOP_VERSION/etc/hadoop/hadoop-env.sh
 
 RUN ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop
