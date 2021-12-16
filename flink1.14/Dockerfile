@@ -2,7 +2,7 @@ FROM flink:1.14.0-scala_2.11-java8
 
 ENV FLINK_HOME /opt/flink
 
-ADD 3rd-libs/*.jar $FLINK_HOME/lib/
+ADD iceberg-lib/*.jar $FLINK_HOME/lib/
 ADD conf/flink-conf/*.yaml  $FLINK_HOME/conf/
 ADD conf/hive-conf/*.xml  /opt/hive-conf/
 		
@@ -15,6 +15,9 @@ RUN wget  $HADOOP_URL && \
         rm hadoop-$HADOOP_VERSION.tar.gz && \
 		ln -s /opt/hadoop-$HADOOP_VERSION/etc/hadoop /etc/hadoop
 ENV PATH $HADOOP_HOME/bin/:$PATH
+
+ADD alluxio-lib/alluxio-2.7.1-client.jar /opt/alluxio/client/
+RUN echo "export HADOOP_CLASSPATH=/opt/alluxio/client/alluxio-*-client.jar:\${HADOOP_CLASSPATH}" >> /opt/hadoop-$HADOOP_VERSION/etc/hadoop/hadoop-env.sh
 ADD bin/config.sh $FLINK_HOME/bin
 ADD conf/hdp-conf/*.xml /opt/hadoop-$HADOOP_VERSION/etc/hadoop/
 
