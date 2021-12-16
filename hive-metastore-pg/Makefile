@@ -1,3 +1,3 @@
-current_branch := 0.1
+current_branch := 1.0
 build:
-	docker build -t coomia/hive3.1-metastore-pg:$(current_branch) ./
+	docker build -t coomia/hive-metastore-pg:$(current_branch) ./
