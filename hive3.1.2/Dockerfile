@@ -44,7 +44,7 @@ ADD conf/llap-daemon-log4j2.properties $HIVE_HOME/conf
 COPY $HADOOP_CONF_DIR/tez-site.xml $HIVE_HOME/conf
 
 
-RUN $HADOOP_HOME/bin/hdfs dfsadmin -safemode leave && $HADOOP_HOME/bin/hdfs dfs -put ${TEZ_HOME} /tez/
+RUN $HADOOP_HOME/bin/hdfs dfsadmin -safemode leave && $HADOOP_HOME/bin/hdfs dfs -mkdir /tez && $HADOOP_HOME/bin/hdfs dfs -put /opt/tez /tez
 
 COPY startup.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/startup.sh
