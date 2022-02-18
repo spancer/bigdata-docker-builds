@@ -1,6 +1,6 @@
 DOCKER_NETWORK = docker-hadoop_default
 ENV_FILE = hadoop.env
-current_branch := 0.1
+current_branch := 1.0
 build:
 	docker build -t coomia/hadoop3.2-base:$(current_branch) ./base
 	docker build -t coomia/hadoop3.2-namenode:$(current_branch) ./namenode
