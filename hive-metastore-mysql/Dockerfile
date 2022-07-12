@@ -8,7 +8,7 @@ ENV HIVE_METASTORE_VERSION=3.1.2
 RUN apt-get update && apt-get install -y netcat curl
 
 ENV HADOOP_HOME=/opt/hadoop-${HADOOP_VERSION}
-ENV HIVE_HOME=/opt/apache-hive-metastore-${METASTORE_VERSION}-bin
+ENV HIVE_HOME=/opt/apache-hive-metastore-${HIVE_METASTORE_VERSION}-bin
 
 RUN curl -L https://repo1.maven.org/maven2/org/apache/hive/hive-standalone-metastore/${HIVE_METASTORE_VERSION}/hive-standalone-metastore-${HIVE_METASTORE_VERSION}-bin.tar.gz | tar zxf - && \
     curl -L https://archive.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf - && \
