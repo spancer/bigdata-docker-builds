@@ -16,7 +16,7 @@ RUN curl -L https://repo1.maven.org/maven2/org/apache/hive/hive-standalone-metas
     cp mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar ${HIVE_HOME}/lib/ && \
     rm -rf  mysql-connector-java-8.0.19  && \
     rm $HIVE_HOME/lib/guava-*.jar && \
-    cp $HADOOP_HOME/share/hadoop/common/lib/guava-*.jar $HIVE_HOME/lib/ && \
+    cp $HADOOP_HOME/share/hadoop/common/lib/guava-*.jar $HIVE_HOME/lib/
 
 COPY entrypoint.sh /entrypoint.sh
 
