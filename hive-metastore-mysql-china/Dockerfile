@@ -14,7 +14,9 @@ RUN curl -L https://repo1.maven.org/maven2/org/apache/hive/hive-standalone-metas
     curl -L https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/core/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz | tar zxf - && \
     curl -L https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.19.tar.gz | tar zxf - && \
     cp mysql-connector-java-8.0.19/mysql-connector-java-8.0.19.jar ${HIVE_HOME}/lib/ && \
-    rm -rf  mysql-connector-java-8.0.19
+    rm -rf  mysql-connector-java-8.0.19  && \
+    rm $HIVE_HOME/lib/guava-*.jar && \
+    cp $HADOOP_HOME/share/hadoop/common/lib/guava-*.jar $HIVE_HOME/lib/ && \
 
 COPY entrypoint.sh /entrypoint.sh
 
