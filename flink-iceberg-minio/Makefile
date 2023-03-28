@@ -1,4 +1,3 @@
-DOCKER_NETWORK = docker-hadoop_default
-current_branch := 1.16.1.01
+current_branch := 1.16.1-1.1.0-1.0
 build:
-	docker build -t coomia/flink-iceberg-minio::$(current_branch) .
+	docker build -t coomia/flink-iceberg-minio:$(current_branch) ./
