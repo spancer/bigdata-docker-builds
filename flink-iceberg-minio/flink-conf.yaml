@@ -2,7 +2,7 @@ jobmanager.rpc.address: localhost
 jobmanager.rpc.port: 6123
 jobmanager.bind-host: 0.0.0.0
 
-jobmanager.memory.process.size: 1600m
+jobmanager.memory.process.size: 2600m
 
 taskmanager.bind-host: 0.0.0.0
 
@@ -18,8 +18,8 @@ execution.checkpointing.interval: 10s
 execution.checkpointing.tolerable-failed-checkpoints: 10 
 
 state.backend: filesystem
-state.checkpoints.dir: s3://flink/checkpoint
-state.savepoints.dir: s3://flink/flink-savepoints
+state.checkpoints.dir: s3://lakehouse/flink/checkpoint
+state.savepoints.dir: s3://lakehouse/flink/savepoints
 state.backend.incremental: true
 
 jobmanager.execution.failover-strategy: region
