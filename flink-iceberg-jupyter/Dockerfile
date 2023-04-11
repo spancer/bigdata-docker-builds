@@ -5,7 +5,8 @@ ARG GROUPID=1000
 
 WORKDIR /work
 
-RUN useradd -m -u $USERID -g $GROUPID -s /bin/bash -d /work/ jupyter
+RUN groupadd --system --gid=$GROUPID jupyter && \ 
+useradd -m -u $USERID -g $GROUPID -s /bin/bash -d /work/ jupyter
 
 # Configure Flink
 ENV FLINK_HOME="/opt/flink"
@@ -28,7 +29,7 @@ RUN apt-get update && \
 
 # Install iJava kernel
 RUN apt-get update && apt-get install -y \
-    python3 && \
+    python3  python3-pip && \
     apt-get clean && \
     pip3 install jupyter && \
     curl -sSL https://github.com/SpencerPark/IJava/releases/download/v1.3.0/ijava-1.3.0.zip --output ijava.zip && \
@@ -52,7 +53,7 @@ ENV ICEBERG_HOME=/opt/iceberg
 
 # Set Jupyter password and run Jupyter
 RUN jupyter notebook --generate-config && \
-    echo "c.NotebookApp.password = 'sha1:YOUR_PASSWORD_HASH_HERE'" >> /root/.jupyter/jupyter_notebook_config.py
+    echo "c.NotebookApp.password = 'sha1:admin'" >> /root/.jupyter/jupyter_notebook_config.py
 EXPOSE 8888
 CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser"]
 
