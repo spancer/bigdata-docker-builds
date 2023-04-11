@@ -1,4 +1,4 @@
-FROM apache/flink:1.14.3-scala_2.12-java11
+FROM apache/flink:1.16.0-scala_2.12-java11
 
 ARG USERID=1000
 ARG GROUPID=1000
@@ -42,14 +42,11 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
     maven && \
     apt-get clean;
-RUN mkdir /opt/iceberg
-WORKDIR /opt/iceberg
-RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime/0.12.4/iceberg-flink-runtime-0.12.4.jar --output iceberg-flink-runtime-0.12.4.jar && \
-    curl -L https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.18/postgresql-42.2.18.jar --output postgresql-42.2.18.jar
+RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-1.16/1.2.0/iceberg-flink-runtime-1.16-1.2.0.jar --output ${FLINK_HOME}/lib/iceberg-flink-runtime-1.16-1.2.0.jar && \
+    curl -L https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.18/postgresql-42.2.18.jar --output ${FLINK_HOME}/lib/postgresql-42.2.18.jar
 
 # Set environment variables
 ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-ENV ICEBERG_HOME=/opt/iceberg
 
 # Set Jupyter password and run Jupyter
 RUN jupyter notebook --generate-config && \
