@@ -1,33 +1,6 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:13-alpine3.15
-    restart: unless-stopped
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - "./data/pg/:/var/lib/postgresql/data"
-    networks:
-      - ngdbp-network
-
-  pgadmin4:
-    image: dpage/pgadmin4:6.5
-    restart: unless-stopped
-    ports:
-      - '8010:80'
-    depends_on:
-      - postgres
-    environment:
-      PGADMIN_DEFAULT_EMAIL: spencer@coomia.com
-      PGADMIN_DEFAULT_PASSWORD: spencer
-    networks:
-      - ngdbp-network
-
   rest:
     image: coomia/iceberg-rest-catalog:0.1
     container_name: iceberg-rest
