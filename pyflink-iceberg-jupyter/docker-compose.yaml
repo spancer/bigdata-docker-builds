@@ -78,6 +78,9 @@ services:
     volumes:
       - ./workspace:/workspace
     environment:
+      - AWS_REGION=us-west-2
+      - S3_ACCESS_KEY_ID=minio
+      - S3_SECRET_ACCESS_KEY=minio123
       - FLINK_HOME=/opt/flink
       - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
     networks:

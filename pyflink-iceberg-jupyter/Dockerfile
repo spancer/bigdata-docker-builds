@@ -40,6 +40,7 @@ RUN mkdir -p ${FLINK_INSTALL_PATH} \
 RUN curl -L https://repo1.maven.org/maven2/org/apache/iceberg/iceberg-flink-runtime-1.16/1.2.1/iceberg-flink-runtime-1.16-1.2.1.jar --output ${FLINK_INSTALL_PATH}/lib/iceberg-flink-runtime-1.16-1.2.1.jar && \
     curl -L https://repo1.maven.org/maven2/org/postgresql/postgresql/42.2.18/postgresql-42.2.18.jar --output ${FLINK_INSTALL_PATH}/lib/postgresql-42.2.18.jar && \
     curl -L https://repo1.maven.org/maven2/software/amazon/awssdk/bundle/2.17.257/bundle-2.17.257.jar --output ${FLINK_INSTALL_PATH}/lib/bundle-2.17.257.jar && \
+    curl -L  https://repository.cloudera.com/artifactory/cloudera-repos/org/apache/flink/flink-shaded-hadoop-3/3.1.1.7.2.9.0-173-9.0/flink-shaded-hadoop-3-3.1.1.7.2.9.0-173-9.0.jar --output ${FLINK_INSTALL_PATH}/lib/flink-shaded-hadoop-3-3.1.1.7.2.9.0-173-9.0.jar && \
     curl -L https://repo1.maven.org/maven2/software/amazon/awssdk/url-connection-client/2.17.257/url-connection-client-2.17.257.jar --output ${FLINK_INSTALL_PATH}/lib/url-connection-client-2.17.257.jar
 
 RUN cp  ${FLINK_INSTALL_PATH}/opt/flink-s3-fs-hadoop-1.16.1.jar ${FLINK_INSTALL_PATH}/lib/
