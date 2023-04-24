@@ -59,10 +59,6 @@ RUN pip install apache-flink==1.16.1
 ENV PYFLINK_HOME=/usr/local/lib/python3.9/site-packages/pyflink
 ENV PYTHONPATH=$PYFLINK_HOME/lib:$FLINK_CLASSPATH:$PYTHONPATH
 
-
-# Configure Iceberg to use Minio and PostgreSQL for metadata management
-COPY iceberg-catalog.properties $FLINK_HOME/conf/iceberg-catalog.properties
-
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
  && unzip awscliv2.zip \
