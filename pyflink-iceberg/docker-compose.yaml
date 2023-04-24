@@ -29,7 +29,7 @@ services:
       - ngdbp-network
 
   rest:
-    image: tabulario/iceberg-rest
+    image: coomia/iceberg-rest-catalog:0.1
     container_name: iceberg-rest
     networks:
       - ngdbp-network
@@ -86,8 +86,9 @@ services:
       exit 0; " 
 
 
-  jupyter-pyflink:
-    build: .
+  pyflink-iceberg:
+    image: coomia/pyflink-iceberg:1.0
+    container_name: pyflink-iceberg
     ports:
       - "8888:8888"
     volumes:
