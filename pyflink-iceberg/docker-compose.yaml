@@ -71,7 +71,7 @@ services:
       exit 0; " 
 
 
-  jupyter:
+  jupyter-pyflink:
     build: .
     ports:
       - "8888:8888"
