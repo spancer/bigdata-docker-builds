@@ -1,0 +1,9 @@
+jupyter
+numpy
+pandas
+matplotlib
+pyarrow
+pyyaml
+ipywidgets
+seaborn
+spylon-kernel
