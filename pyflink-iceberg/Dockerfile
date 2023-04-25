@@ -58,6 +58,7 @@ RUN pip install apache-flink==1.16.1
 # Set environment variables
 ENV PYFLINK_HOME=/usr/local/lib/python3.9/site-packages/pyflink
 ENV PYTHONPATH=$PYFLINK_HOME/lib:$FLINK_CLASSPATH:$PYTHONPATH
+ENV IJAVA_CLASSPATH=/opt/flink/lib/*
 
 # Install AWS CLI
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
